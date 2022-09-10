@@ -15,17 +15,16 @@
     <java.version>13</java.version>
     <kotlin.version>1.6.10</kotlin.version>
 
-    <jackson.version>2.13.3</jackson.version>
-    <junit.version>3.8.1</junit.version>
+    <spring-boot.version>2.6.2</spring-boot.version>
+    <springmockk.version>2.0.3</springmockk.version>
 
-    <maven.antrun.version>1.7</maven.antrun.version>
-    <ktlint.version>0.37.2</ktlint.version>
-    <maven.pmd.version>3.13.0</maven.pmd.version>
-    <maven.detekt.version>1.12.0</maven.detekt.version>
-    <jacoco-coverage.version>0.8.5</jacoco-coverage.version>
+    <maven.antrun.version>3.1.0</maven.antrun.version>
+    <ktlint.version>0.47.1</ktlint.version>
+    <maven.detekt.version>1.21.0</maven.detekt.version>
 
     <jacoco-coverage.class.line.min>0.80</jacoco-coverage.class.line.min>
     <jacoco-coverage.class.branch.min>0.80</jacoco-coverage.class.branch.min>
+    <skip.checks>false</skip.checks>
   </properties>
 
   <dependencies>
@@ -34,24 +33,35 @@
     <dependency>
       <groupId>com.fasterxml.jackson.module</groupId>
       <artifactId>jackson-module-kotlin</artifactId>
-      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-reflect</artifactId>
-      <version>${kotlin.version}</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib-jdk8</artifactId>
-      <version>1.7.10</version>
     </dependency>
 
     <!-- test -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -68,10 +78,21 @@
           <args>
             <arg>-Xjsr305=strict</arg>
           </args>
-          <compilerPlugins>
-            <plugin>spring</plugin>
-          </compilerPlugins>
         </configuration>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+          </execution>
+        </executions>
         <dependencies>
           <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -84,6 +105,19 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
+<!--        <dependencies>-->
+<!--          <dependency>-->
+<!--            <groupId>org.junit.platform</groupId>-->
+<!--            <artifactId>junit-platform-surefire-provider</artifactId>-->
+<!--            <version>1.0.3</version>-->
+<!--          </dependency>-->
+<!--          <dependency>-->
+<!--            <groupId>org.junit.jupiter</groupId>-->
+<!--            <artifactId>junit-jupiter-engine</artifactId>-->
+<!--            <version>5.8.2</version>-->
+<!--          </dependency>-->
+<!--        </dependencies>-->
         <configuration>
           <excludes>
             <exclude>**/*IntegrationTest.java</exclude>
@@ -96,12 +130,18 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${jacoco-coverage.version}</version>
         <executions>
           <execution>
             <id>default-prepare-agent</id>
             <goals>
               <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>report</goal>
             </goals>
           </execution>
           <execution>
@@ -154,22 +194,24 @@
         <executions>
           <execution>
             <id>ktlint</id>
-            <phase>verify</phase>
-            <configuration>
-              <target name="ktlint">
-                <java taskname="ktlint" dir="${basedir}" fork="true" failonerror="true"
-                  classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath">
-                  <arg value="src/**/*.kt"/>
-                  <!-- to avoid generating report in checkstyle format remove following args: -->
-                  <arg value="--reporter=plain"/>
-                  <arg value="--reporter=checkstyle,output=${project.build.directory}/ktlint.xml"/>
-                  <!-- see https://github.com/pinterest/ktlint#usage for more -->
-                </java>
-              </target>
-            </configuration>
+            <phase>process-sources</phase>
             <goals>
               <goal>run</goal>
             </goals>
+            <configuration>
+              <skip>${skip.checks}</skip>
+              <target name="ktlint">
+                <property name="compile_classpath" refid="maven.compile.classpath"/>
+                <java taskname="ktlint" dir="${basedir}"
+                  fork="true"
+                  failonerror="true"
+                  classname="com.pinterest.ktlint.Main"
+                  classpathref="maven.plugin.classpath">
+                  <jvmarg value="--add-opens=java.base/java.lang=ALL-UNNAMED"/>
+                  <arg value="-F"/>
+                </java>
+              </target>
+            </configuration>
           </execution>
           <execution>
             <id>ktlint-format</id>
@@ -201,7 +243,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>${maven.pmd.version}</version>
         <configuration>
           <failOnViolation>true</failOnViolation>
           <printFailingErrors>true</printFailingErrors>
@@ -245,6 +286,18 @@
       </plugin>
     </plugins>
   </build>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>2.7.3</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <profiles>
     <profile>
