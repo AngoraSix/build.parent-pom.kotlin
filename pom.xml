@@ -194,28 +194,19 @@
         <executions>
           <execution>
             <id>ktlint</id>
-            <phase>process-sources</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
+            <phase>verify</phase>
             <configuration>
-              <skip>${skip.checks}</skip>
               <target name="ktlint">
-                <property name="compile_classpath" refid="maven.compile.classpath"/>
-                <java taskname="ktlint" dir="${basedir}"
-                  fork="true"
-                  failonerror="true"
-                  classname="com.pinterest.ktlint.Main"
-                  classpathref="maven.plugin.classpath">
-                  <jvmarg value="--add-opens=java.base/java.lang=ALL-UNNAMED"/>
-                  <arg value="-F"/>
+                <java taskname="ktlint" dir="${basedir}" fork="true" failonerror="true"
+                  classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath">
+                  <arg value="src/**/*.kt"/>
                 </java>
               </target>
             </configuration>
+            <goals><goal>run</goal></goals>
           </execution>
           <execution>
             <id>ktlint-format</id>
-            <phase>package</phase>
             <configuration>
               <target name="ktlint">
                 <java taskname="ktlint" dir="${basedir}" fork="true" failonerror="true"
@@ -225,9 +216,7 @@
                 </java>
               </target>
             </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
+            <goals><goal>run</goal></goals>
           </execution>
         </executions>
         <dependencies>
