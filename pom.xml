@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.angorasix</groupId>
   <artifactId>parent-pom-kotlin</artifactId>
-  <version>0.1.2-SNAPSHOT</version>
+  <version>0.2.1</version>
   <name>parent-pom-kotlin</name>
   <description>Angora Six Parent Pom for Kotlin Library Projects</description>
   <packaging>pom</packaging>
@@ -180,6 +180,7 @@
             <exclude>**/dto/*.class</exclude>
             <exclude>**/dto/**/*.class</exclude>
             <exclude>**/configurationproperty/**/*.class</exclude>
+            <exclude>**/infrastructure/**/constants/*.class</exclude>
             <exclude>**/*Application.class</exclude>
             <exclude>**/*ApplicationKt.class</exclude>
             <exclude>**/BeansKt*</exclude>
@@ -253,7 +254,7 @@
           <dependency>
             <groupId>com.angorasix</groupId>
             <artifactId>kotlin-build-tools</artifactId>
-            <version>${project.version}</version>
+            <version>0.2.1</version>
           </dependency>
         </dependencies>
       </plugin>
