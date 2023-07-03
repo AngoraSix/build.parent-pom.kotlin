@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.angorasix</groupId>
   <artifactId>parent-pom-kotlin</artifactId>
-  <version>0.2.1</version>
+  <version>0.2.2</version>
   <name>parent-pom-kotlin</name>
   <description>Angora Six Parent Pom for Kotlin Library Projects</description>
   <packaging>pom</packaging>
@@ -13,9 +13,9 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>17</java.version>
-    <kotlin.version>1.7.22</kotlin.version>
+    <kotlin.version>1.8.22</kotlin.version>
 
-    <spring-boot.version>3.0.5</spring-boot.version>
+    <spring-boot.version>3.1.1</spring-boot.version>
     <springmockk.version>2.0.3</springmockk.version>
 
     <maven.antrun.version>3.1.0</maven.antrun.version>
@@ -254,7 +254,7 @@
           <dependency>
             <groupId>com.angorasix</groupId>
             <artifactId>kotlin-build-tools</artifactId>
-            <version>0.2.1</version>
+            <version>0.2.2</version>
           </dependency>
         </dependencies>
       </plugin>
