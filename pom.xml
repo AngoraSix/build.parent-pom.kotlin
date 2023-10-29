@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.angorasix</groupId>
   <artifactId>parent-pom-kotlin</artifactId>
-  <version>0.2.2</version>
+  <version>0.2.3</version>
   <name>parent-pom-kotlin</name>
   <description>Angora Six Parent Pom for Kotlin Library Projects</description>
   <packaging>pom</packaging>
