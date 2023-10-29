@@ -10,3 +10,8 @@ on:
 jobs:
   build-and-publish-artifact:
     uses: AngoraSix/infra/.github/workflows/action-publish-maven.yml@main
+    secrets:
+      maven-gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+      ossrh-username: ${{ secrets. }}
+      ossrh-token: ${{ secrets. }}
+      maven-gpg-passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
