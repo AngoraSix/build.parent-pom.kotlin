@@ -26,6 +26,10 @@
     <jacoco-coverage.class.line.min>0.80</jacoco-coverage.class.line.min>
     <jacoco-coverage.class.branch.min>0.80</jacoco-coverage.class.branch.min>
     <skip.checks>false</skip.checks>
+
+    <maven.source.version>3.3.0</maven.source.version>
+    <maven.javadoc.version>3.6.0</maven.javadoc.version>
+    <mave.gpg.version>3.1.0</mave.gpg.version>
   </properties>
 
   <dependencies>
@@ -276,6 +280,33 @@
           </execution>
         </executions>
       </plugin>
+      <!-- Maven publish - generate Javadocs and Source files for publishing artifact -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${maven.source.version}</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${maven.javadoc.version}</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
@@ -318,6 +349,34 @@
                     <include>**/*IntegrationTest.java</include>
                     <include>**/*ApplicationTest.java</include>
                   </includes>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>ci-cd</id>
+      <build>
+        <plugins>
+          <!-- Maven Signing - For Maven publish artifact -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${mave.gpg.version}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <configuration>
+                  <gpgArguments>
+                    <arg>--pinentry-mode</arg>
+                    <arg>loopback</arg>
+                  </gpgArguments>
                 </configuration>
               </execution>
             </executions>
