@@ -2,8 +2,6 @@ name: Workflow executed when pushing git tag for a new version
 
 on:
   push:
-    branches:
-      - main
     tags:
       - v*.*.*
 
@@ -12,6 +10,6 @@ jobs:
     uses: AngoraSix/infra/.github/workflows/action-publish-maven.yml@main
     secrets:
       maven-gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-      ossrh-username: ${{ secrets. }}
-      ossrh-token: ${{ secrets. }}
+      ossrh-username: ${{ secrets.OSSRH_USERNAME }}
+      ossrh-token: ${{ secrets.OSSRH_TOKEN }}
       maven-gpg-passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
