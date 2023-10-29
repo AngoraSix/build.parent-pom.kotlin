@@ -15,6 +15,8 @@
     <java.version>17</java.version>
     <kotlin.version>1.8.22</kotlin.version>
 
+    <maven.kotlin.version>1.9.10</maven.kotlin.version>
+
     <spring-boot.version>3.1.1</spring-boot.version>
     <springmockk.version>2.0.3</springmockk.version>
 
@@ -22,6 +24,7 @@
     <ktlint.version>0.47.1</ktlint.version>
     <maven.detekt.version>1.21.0</maven.detekt.version>
     <maven.pmd.plugin.version>3.20.0</maven.pmd.plugin.version>
+    <maven.jacoco.version>0.8.11</maven.jacoco.version>
 
     <jacoco-coverage.class.line.min>0.80</jacoco-coverage.class.line.min>
     <jacoco-coverage.class.branch.min>0.80</jacoco-coverage.class.branch.min>
@@ -80,6 +83,7 @@
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${maven.kotlin.version}</version>
         <configuration>
           <args>
             <arg>-Xjsr305=strict</arg>
@@ -136,6 +140,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${maven.jacoco.version}</version>
         <executions>
           <execution>
             <id>default-prepare-agent</id>
