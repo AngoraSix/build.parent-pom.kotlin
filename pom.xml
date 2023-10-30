@@ -6,7 +6,7 @@
 
   <groupId>com.angorasix</groupId>
   <artifactId>parent-pom-kotlin</artifactId>
-  <version>0.2.3</version>
+  <version>0.2.4</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -263,7 +263,7 @@
           <dependency>
             <groupId>com.angorasix</groupId>
             <artifactId>kotlin-build-tools</artifactId>
-            <version>0.2.2</version>
+            <version>0.2.4</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -407,7 +407,7 @@
     <module>build-tools-kotlin</module>
   </modules>
 
-  <name>parent-pom-kotlin</name>
+  <name>Angorasix - Parent Pom - Kotlin</name>
   <description>Angora Six Parent Pom for Kotlin Library Projects</description>
   <url>https://angorasix.com</url>
 
