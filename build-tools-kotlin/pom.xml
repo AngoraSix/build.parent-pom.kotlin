@@ -3,15 +3,35 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.angorasix</groupId>
     <artifactId>kotlin-build-tools</artifactId>
-    <version>0.2.4</version>
-    <name>parent-pom-kotlin-build-tools</name>
-    <description>Angora Six Parent Pom Build Tools containing resources</description>
+    <version>0.2.5</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <name>Angorasix - Parent Pom - Kotlin - Build Tools</name>
+    <description>Angora Six Parent Pom for Kotlin Library Projects - Build Tools</description>
+    <url>https://angorasix.com</url>
+
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE, Version 3</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Gerardo Roza</name>
+            <email>rozagerardo@gmail.com</email>
+            <organization>AngoraSix</organization>
+            <organizationUrl>https://angorasix.com</organizationUrl>
+        </developer>
+    </developers>
 
     <distributionManagement>
         <snapshotRepository>
@@ -23,4 +43,10 @@
             <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+
+    <scm>
+        <connection>scm:git:git://github.com/AngoraSix/commons.core.git</connection>
+        <developerConnection>scm:git:ssh://github.com:AngoraSix/commons.core.git</developerConnection>
+        <url>https://github.com/AngoraSix/commons.core</url>
+    </scm>
 </project>
