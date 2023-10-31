@@ -6,7 +6,7 @@
 
   <groupId>com.angorasix</groupId>
   <artifactId>parent-pom-kotlin</artifactId>
-  <version>0.2.5</version>
+  <version>0.2.6</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -263,7 +263,7 @@
           <dependency>
             <groupId>com.angorasix</groupId>
             <artifactId>kotlin-build-tools</artifactId>
-            <version>0.2.5</version>
+            <version>0.2.6</version>
           </dependency>
         </dependencies>
       </plugin>
